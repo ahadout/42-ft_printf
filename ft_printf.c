@@ -6,7 +6,7 @@
 /*   By: mahadout <mahadout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 21:15:27 by mahadout          #+#    #+#             */
-/*   Updated: 2026/11/13 21:28:42 by mahadout         ###   ########.fr       */
+/*   Updated: 2026/11/15 17:45:09 by mahadout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,23 @@ int	ft_printf(const char *format, ...)
 	count = 0;
 	va_start(args, format);
 	i = 0;
+	if (!format)
+		return (-1);
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
-			if (format[++i] && (format[i] == 'c' \
-|| format[i] == 's' \
-|| format[i] == 'i' \
-|| format[i] == 'd' \
-|| format[i] == 'u' \
-|| format[i] == 'x' \
-|| format[i] == 'X' \
-|| format[i] == 'p' \
+			if (format[++i] && (format[i] == 'c' || format[i] == 's' \
+|| format[i] == 'i' || format[i] == 'd' \
+|| format[i] == 'u' || format[i] == 'x' \
+|| format[i] == 'X' || format[i] == 'p' \
 || format[i] == '%'))
 				count += get_format(format[i], &args);
 		}
 		else
-		{
 			count += ft_putchar(format[i]);
-			if (count < 0)
-				return (-1);
-		}
+		if (count < 0)
+			return (-1);
 		i++;
 	}
 	va_end(args);
