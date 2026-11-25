@@ -6,7 +6,7 @@
 /*   By: mahadout <mahadout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 21:15:27 by mahadout          #+#    #+#             */
-/*   Updated: 2026/11/15 17:45:09 by mahadout         ###   ########.fr       */
+/*   Updated: 2026/11/25 22:13:46 by mahadout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,20 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			if (format[++i] && (format[i] == 'c' || format[i] == 's' \
+			if ((format[++i] == 'c' || format[i] == 's' \
 || format[i] == 'i' || format[i] == 'd' \
 || format[i] == 'u' || format[i] == 'x' \
 || format[i] == 'X' || format[i] == 'p' \
 || format[i] == '%'))
 				count += get_format(format[i], &args);
+			else
+				return (va_end(args), -1);
 		}
 		else
 			count += ft_putchar(format[i]);
 		if (count < 0)
-			return (-1);
+			return (va_end(args), -1);
 		i++;
 	}
-	va_end(args);
-	return (count);
+	return (va_end(args), count);
 }
